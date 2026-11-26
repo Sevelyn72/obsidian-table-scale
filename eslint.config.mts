@@ -29,4 +29,11 @@ export default defineConfig(
 		},
 	},
 	...obsidianmd.configs.recommended,
+	{
+		files: ['src/**/*.ts'],
+		rules: {
+			'obsidianmd/prefer-create-el': 'error',
+			'@typescript-eslint/no-unnecessary-type-assertion': 'error',
+		},
+	},
 );

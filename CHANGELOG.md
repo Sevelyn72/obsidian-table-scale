@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.2 — 2026-11-26
+
+- Use Obsidian DOM helpers to create resize controls in the table's own document.
+- Remove a redundant table type assertion from the reading-view adapter.
+- Enforce both source-code review rules in local and CI lint checks.
+
 ## 1.2.1 — 2026-11-26
 
 - Add GitHub build-provenance attestations for the three installable release assets.

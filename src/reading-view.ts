@@ -3,6 +3,10 @@ import type { ScaleStore } from './scale-store';
 import { parseTables, tableAtLine } from './table-source';
 import { hasController, TableScaleController } from './table-scaler';
 
+function isTable(element: HTMLElement): element is HTMLTableElement {
+  return element.tagName === 'TABLE';
+}
+
 class ReadingTable extends MarkdownRenderChild {
   constructor(
     private readonly table: HTMLTableElement,
@@ -36,7 +40,7 @@ export function registerReadingTables(
 ): void {
   plugin.registerMarkdownPostProcessor(async (element, context) => {
     if (element.closest('.markdown-source-view')) return;
-    const rendered = element.matches('table') ? [element as HTMLTableElement]
+    const rendered = isTable(element) ? [element]
       : Array.from(element.querySelectorAll<HTMLTableElement>('table')).filter(table => !table.parentElement?.closest('table'));
     if (!rendered.length) return;
     const section = context.getSectionInfo(element);

@@ -42,16 +42,12 @@ export class TableScaleEdges extends Component {
 
   onload(): void {
     const doc = this.table.ownerDocument;
-    this.overlay = doc.createElement('div');
-    this.overlay.className = 'table-scale-overlay';
+    this.overlay = doc.body.createDiv({ cls: 'table-scale-overlay' });
     this.overlay.hidden = true;
-    this.label = doc.createElement('span');
-    this.label.className = 'table-scale-label';
-    this.overlay.append(this.label);
+    this.label = this.overlay.createSpan({ cls: 'table-scale-label' });
     const text = getTexts();
     for (const edge of ['right', 'bottom', 'corner'] as const) {
-      const area = doc.createElement('div');
-      area.className = `table-scale-edge table-scale-edge-${edge}`;
+      const area = this.overlay.createDiv({ cls: `table-scale-edge table-scale-edge-${edge}` });
       area.title = edge === 'right' ? text.widthHint : text.edgeHint;
       if (edge === 'corner' || edge === 'right') {
         area.tabIndex = 0;
@@ -63,7 +59,6 @@ export class TableScaleEdges extends Component {
         }
       }
       this.areas.set(edge, area);
-      this.overlay.append(area);
       this.registerDomEvent(area, 'pointerenter', () => this.show());
       this.registerDomEvent(area, 'pointerleave', () => this.hideLater());
       this.registerDomEvent(area, 'focus', () => this.show());
@@ -80,7 +75,6 @@ export class TableScaleEdges extends Component {
       });
       this.registerDomEvent(area, 'keydown', event => this.onKey(event, edge));
     }
-    doc.body.append(this.overlay);
     this.registerDomEvent(this.table, 'pointerenter', () => this.show());
     this.registerDomEvent(this.table, 'pointermove', () => this.show());
     this.registerDomEvent(this.table, 'pointerleave', () => this.hideLater());
