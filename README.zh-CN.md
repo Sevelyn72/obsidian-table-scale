@@ -22,7 +22,7 @@
 
 要求桌面版 **Obsidian 1.13.7 或更新版本**。主要测试平台为 Windows，macOS 和 Linux 尚需进一步手动验证。暂不支持手机端。
 
-本插件尚未提交社区目录，目前可手动安装：
+需要手动安装时，可以使用构建或发布得到的三个安装文件：
 
 1. 在仓库中创建 `.obsidian/plugins/table-scale/`。
 2. 将构建或发布得到的 `main.js`、`manifest.json`、`styles.css` 复制进去。
@@ -68,7 +68,9 @@ npm run check
 npm run dev
 ```
 
-`npm run check` 会检查 ESLint（零警告）、回归测试、严格类型、生产构建和发布信息。`npm run package` 还会将三个安装文件和 SHA-256 校验值整理到 `dist/<版本号>/`。
+`npm run check` 会检查 ESLint（零警告）、回归测试、严格类型、生产构建和发布信息。`npm run package` 还会将三个安装文件和本地 SHA-256 校验值整理到 `dist/<版本号>/`。
+
+发布工作流会为安装文件生成 GitHub 构建来源证明，草稿 Release 仅附带 `main.js`、`manifest.json` 和 `styles.css`。校验文件留在本地使用。
 
 运行时使用 Obsidian 自带的 Obsidian API 和 CodeMirror，不把它们重复打进插件。开发依赖、本地记录和构建产物已加入 Git 忽略规则。
 

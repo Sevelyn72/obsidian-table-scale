@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      id-token: write
+      attestations: write
     env:
       RELEASE_TAG: ${{ github.ref_name }}
     steps:
@@ -24,6 +26,14 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run package
+      - name: Attest installable assets
+        uses: actions/attest@v4
+        with:
+          subject-path: |
+            dist/${{ env.RELEASE_TAG }}/main.js
+            dist/${{ env.RELEASE_TAG }}/manifest.json
+            dist/${{ env.RELEASE_TAG }}/styles.css
+          create-storage-record: false
       - name: Create draft with individual plugin assets
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -33,4 +43,3 @@ jobs:
           "dist/$RELEASE_TAG/main.js"
           "dist/$RELEASE_TAG/manifest.json"
           "dist/$RELEASE_TAG/styles.css"
-          "dist/$RELEASE_TAG/SHA256SUMS.txt"

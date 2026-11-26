@@ -37,7 +37,7 @@ export class TableScaleController extends Component {
     owners.set(this.table, this);
     this.surface = this.options.mode === 'live'
       ? this.table.closest<HTMLElement>('.table-wrapper') ?? this.table : this.table;
-    this.originals = ['zoom', 'width'].map(property => [
+    this.originals = ['zoom', 'width', 'max-width'].map(property => [
       property, this.surface.style.getPropertyValue(property), this.surface.style.getPropertyPriority(property),
     ]);
     const width = this.surface.offsetWidth;
@@ -89,6 +89,7 @@ export class TableScaleController extends Component {
     this.scale = clampScale(value);
     const width = this.customWidth ?? this.baseWidth;
     this.surface.style.setProperty('width', `${width}px`);
+    this.surface.style.setProperty('max-width', `${width}px`);
     if (this.customWidth !== undefined) this.table.style.setProperty('width', `${width}px`);
     else if (this.originalTableWidth) {
       const [value, priority] = this.originalTableWidth;

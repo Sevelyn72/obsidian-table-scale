@@ -22,7 +22,7 @@ Drag the right edge of a Markdown table to change its width without changing tex
 
 Requires desktop Obsidian **1.13.7 or later**. Windows is the primary test platform; macOS and Linux need further manual validation. Mobile support is disabled.
 
-The plugin has not yet been submitted to the community directory. For now, build it or use the three files from a release:
+For manual installation, build the plugin or use the three installable files from a release:
 
 1. Create `<vault>/.obsidian/plugins/table-scale/`.
 2. Copy `main.js`, `manifest.json`, and `styles.css` into that directory.
@@ -68,7 +68,9 @@ npm run check
 npm run dev
 ```
 
-`npm run check` runs ESLint with zero warnings, regression tests, strict TypeScript checking, the production build, and release metadata validation. `npm run package` also stages the three installable assets and SHA-256 checksums in `dist/<version>/`.
+`npm run check` runs ESLint with zero warnings, regression tests, strict TypeScript checking, the production build, and release metadata validation. `npm run package` also stages the three installable assets and local SHA-256 checksums in `dist/<version>/`.
+
+The release workflow attests the installable assets with GitHub build provenance and attaches only `main.js`, `manifest.json`, and `styles.css` to the draft release. Checksums remain available locally.
 
 CodeMirror and the Obsidian API are provided by Obsidian at runtime and are excluded from the plugin bundle. Development dependencies and local plugin data are excluded from Git.
 

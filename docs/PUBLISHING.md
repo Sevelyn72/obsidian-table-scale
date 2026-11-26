@@ -11,7 +11,7 @@ npm ci
 npm run package
 ```
 
-检查通过后，安装文件位于 `dist/1.2.0/`：`main.js`、`manifest.json`、`styles.css`；`SHA256SUMS.txt` 提供校验值。发布前完成[手动验收](../tests/manual.md)，特别是单独拉宽、等比例缩放、编辑和重启恢复。
+检查通过后，安装文件位于 `dist/1.2.1/`：`main.js`、`manifest.json`、`styles.css`；`SHA256SUMS.txt` 留作本地校验。发布前完成[手动验收](../tests/manual.md)，特别是单独拉宽、等比例缩放、编辑和重启恢复。
 
 `manifest.json`、`package.json` 和 `versions.json` 的版本必须一致。当前作者为 **Sevelyn**；GitHub 用户名确定后，再按需补充仓库链接和作者主页，不应使用猜测的链接。
 
@@ -25,11 +25,13 @@ npm run package
 
 ## 3. 创建 GitHub Release
 
-版本标签必须与 `manifest.json` 完全一致，例如 `1.2.0`，不要加 `v` 前缀。
+版本标签必须与 `manifest.json` 完全一致，例如 `1.2.1`，不要加 `v` 前缀。
 
-本工程的 `.github/workflows/release.yml` 会在推送版本标签时运行完整检查，并生成一个 **草稿 Release**。检查附件和版本说明后，再由维护者发布草稿。
+本工程的 `.github/workflows/release.yml` 会在推送版本标签时运行完整检查，为三个安装文件生成 GitHub 构建来源证明，并创建一个 **草稿 Release**。检查附件、证明步骤和版本说明后，再由维护者发布草稿。
 
-也可以在 GitHub 页面手动创建 Release，单独上传 `main.js`、`manifest.json`、`styles.css`，可另外上传校验值。不要只上传一个压缩包来替代这三个附件。
+Release 的安装附件只包含 `main.js`、`manifest.json`、`styles.css`。本地校验文件不作为 Release 附件，避免社区检查提示额外的非安装文件。
+
+来源证明通过 GitHub Attestations 服务保存，而非额外上传为安装附件。公开仓库可以使用此功能；工作流授予构建任务所需的 `id-token: write` 和 `attestations: write` 权限。说明见 [GitHub 构建来源证明文档](https://docs.github.com/en/actions/how-tos/secure-your-work/use-artifact-attestations/use-artifact-attestations)。
 
 ## 4. 提交社区目录
 

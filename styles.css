@@ -1,12 +1,11 @@
 /* Transparent outer-border hit areas; the native cells keep all interior input. */
-.table-scale-surface { max-width: none !important; }
 .table-scale-overlay {
   position: fixed;
   z-index: 100;
   pointer-events: none;
   contain: layout style;
 }
-.table-scale-overlay[hidden], .table-scale-edge[hidden] { display: none !important; }
+.table-scale-overlay[hidden], .table-scale-overlay > .table-scale-edge[hidden] { display: none; }
 .table-scale-edge {
   position: absolute;
   pointer-events: auto;
@@ -42,4 +41,4 @@
 }
 .table-scale-overlay.is-visible > .table-scale-label,
 .table-scale-overlay.is-dragging > .table-scale-label { opacity: 1; }
-@media print { .table-scale-overlay { display: none !important; } }
+@media print { .table-scale-overlay { display: none; } }

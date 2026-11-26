@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2.1 — 2026-11-26
+
+- Add GitHub build-provenance attestations for the three installable release assets.
+- Keep SHA-256 checksum files local instead of attaching unsupported extra files to releases.
+- Remove CSS priority overrides and preserve explicit width bounds through component-owned styles.
+- Restore original maximum-width styles when the plugin unloads.
+
 ## 1.2.0 — 2026-11-25
 
 - Drag the right outer edge to adjust width without changing text or formula size.
