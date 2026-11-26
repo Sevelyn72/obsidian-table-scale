@@ -1,0 +1,36 @@
+name: Prepare draft release
+
+on:
+  push:
+    tags: ['[0-9]*.[0-9]*.[0-9]*']
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      RELEASE_TAG: ${{ github.ref_name }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run package
+      - name: Create draft with individual plugin assets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: >-
+          gh release create "$RELEASE_TAG" --verify-tag --draft
+          --title "$RELEASE_TAG" --notes-file CHANGELOG.md
+          "dist/$RELEASE_TAG/main.js"
+          "dist/$RELEASE_TAG/manifest.json"
+          "dist/$RELEASE_TAG/styles.css"
+          "dist/$RELEASE_TAG/SHA256SUMS.txt"

@@ -1,0 +1,9 @@
+{
+  "id": "table-scale",
+  "name": "Table Scale",
+  "version": "1.2.0",
+  "minAppVersion": "1.13.7",
+  "description": "Drag table edges to adjust width or scale tables and formulas in reading view and Live Preview; remember each table's layout.",
+  "author": "Sevelyn",
+  "isDesktopOnly": true
+}
